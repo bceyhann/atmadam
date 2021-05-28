@@ -118,11 +118,10 @@ class bankamatik():  # Main class
                 continue
         value = int(value)
         self.accountbalance -= value
-        newbalance = self.accountbalance
-        im.execute("UPDATE ac SET acbalance = ? WHERE acno = ?", (str(newbalance), str(self.accountno))) # Updating account's balance.
+        im.execute("UPDATE ac SET acbalance = ? WHERE acno = ?", (str(self.accountbalance), str(self.accountno))) # Updating account's balance.
         db.commit()
         clear()
-        print("\nÇektiğiniz Miktar:",value,"\nKalan Paranız:",newbalance)
+        print("\nÇektiğiniz Miktar:",value,"\nKalan Paranız:",self.accountbalance)
         sleep(2)
 
     def deposit(self):  # Deposit money to account.
@@ -138,11 +137,10 @@ class bankamatik():  # Main class
                 continue
         value = int(value)
         self.accountbalance += value
-        newbalance = self.accountbalance
-        im.execute("UPDATE ac SET acbalance = ? WHERE acno = ?", (str(newbalance), str(self.accountno)))  # Updating account's balance.
+        im.execute("UPDATE ac SET acbalance = ? WHERE acno = ?", (str(self.accountbalance), str(self.accountno)))  # Updating account's balance.
         db.commit()
         clear()
-        print("\nYatırdığınız Miktar:",value,"\nYeni Paranız:",newbalance)
+        print("\nYatırdığınız Miktar:",value,"\nYeni Paranız:",self.accountbalance)
         sleep(2)
 
     def invest(self):  # For investing money in your account.
@@ -179,11 +177,10 @@ class bankamatik():  # Main class
         monthcount = monthcount / 12
         invest = value * (1+0.19*monthcount)  # Investing formula.
         self.accountbalance = self.accountbalance + invest
-        newbalance = self.accountbalance
-        im.execute("UPDATE ac SET acbalance = ? WHERE acno = ?", (str(newbalance), str(self.accountno)))  # Updating account's balance.
+        im.execute("UPDATE ac SET acbalance = ? WHERE acno = ?", (str(self.accountbalance), str(self.accountno)))  # Updating account's balance.
         db.commit()
         clear()
-        print("Yatırdığınız para: ",value,"\nNet Kazancınız: ",invest - value,"\nFaiz Sonucundaki paranız: ",newbalance)
+        print("Yatırdığınız para: ",value,"\nNet Kazancınız: ",invest - value,"\nFaiz Sonucundaki paranız: ",self.accountbalance)
         sleep(5)
 
     def quit(self):     # For close the program. (Remember it's a simulation :)) )
@@ -194,4 +191,3 @@ class bankamatik():  # Main class
 
 
 start = bankamatik()    # Calling class.
-
